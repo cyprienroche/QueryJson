@@ -51,14 +51,14 @@ public class QueryJson {
             .allMatch(e -> hasSameEntry(jsonToDecide, e.getKey(), e.getValue()));
     }
 
-    public static JsonObject jsonObjectFromString(String string) {
-        JsonParser parser = new JsonParser();
-        return parser.parse(string).getAsJsonObject();
-    }
-
     public void remove(JsonObject json) {
         List<JsonObject> toDelete = get(json);
         jsons = jsons.stream().filter(jsonObject -> !toDelete.contains(jsonObject))
             .collect(Collectors.toList());
+    }
+
+    public static JsonObject jsonObjectFromString(String string) {
+        JsonParser parser = new JsonParser();
+        return parser.parse(string).getAsJsonObject();
     }
 }

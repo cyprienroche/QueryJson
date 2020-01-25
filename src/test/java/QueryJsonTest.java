@@ -9,7 +9,8 @@ import org.junit.Test;
 
 public class QueryJsonTest {
 
-  QueryJson queryJson = new QueryJson(JsonMockObjects.jsonWithId(1),
+  QueryJson simpleQueryJson = new QueryJson(
+      JsonMockObjects.jsonWithId(1),
       JsonMockObjects.jsonWithIdAndValid(2, true),
       JsonMockObjects.jsonWithIdAndValid(3, false),
       JsonMockObjects.jsonWithIdAndValid(3, true)
@@ -19,7 +20,7 @@ public class QueryJsonTest {
 
   @Test
   public void getSameJsonAsInConstructorReturnsThatJson() {
-    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithId(1));
+    List<JsonObject> res = simpleQueryJson.get(JsonMockObjects.jsonWithId(1));
 
     assertThat(res, is(Collections.singletonList(JsonMockObjects.jsonWithId(1))));
   }
@@ -27,7 +28,7 @@ public class QueryJsonTest {
   @Test
   public void getJsonGivenOnlyOneParameter() {
 
-    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithId(2));
+    List<JsonObject> res = simpleQueryJson.get(JsonMockObjects.jsonWithId(2));
 
     assertThat(res, is(Collections.singletonList(JsonMockObjects.jsonWithIdAndValid(2, true))));
   }
@@ -35,7 +36,7 @@ public class QueryJsonTest {
   @Test
   public void getJsonGivenOnlyOneParameter2() {
 
-    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithIdAndValid(3, true));
+    List<JsonObject> res = simpleQueryJson.get(JsonMockObjects.jsonWithIdAndValid(3, true));
 
     assertThat(res, is(Collections.singletonList(JsonMockObjects.jsonWithIdAndValid(3, true))));
   }
@@ -83,15 +84,6 @@ public class QueryJsonTest {
   }
 
   @Test
-  public void canDeleteElementsSimpleCase() {
-
-    queryJson.remove(JsonMockObjects.jsonWithId(3));
-
-    assertThat(queryJson.get(new JsonObject()), is(Arrays.asList(JsonMockObjects.jsonWithId(1),
-        JsonMockObjects.jsonWithIdAndValid(2, true))));
-  }
-
-  @Test
   public void canDeleteElementsUsingPeople() {
 
     String json = "{\"active\":true}";
@@ -100,5 +92,9 @@ public class QueryJsonTest {
     assertThat(peopleJson.get(new JsonObject()), is(Collections.singletonList(JsonMockPeople.jack)));
   }
 
+  @Test
+  public void getListsContainingSubList() {
 
+
+  }
 }
