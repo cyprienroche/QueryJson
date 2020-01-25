@@ -70,7 +70,7 @@ public class QueryJsonTest {
 
     List<JsonObject> res = queryJson.get(jsonWithIdAndValid());
 
-    assertThat(res, is(new JsonObject[]{jsonWithIdAndValid()}));
+    assertThat(res, is(Arrays.asList(jsonWithIdAndValid())));
   }
 
 
