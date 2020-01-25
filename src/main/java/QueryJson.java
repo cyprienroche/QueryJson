@@ -1,5 +1,6 @@
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -11,6 +12,10 @@ public class QueryJson {
 
     public QueryJson() {
         this(new LinkedList<>());
+    }
+
+    public QueryJson(JsonObject... jsons) {
+        this(Arrays.stream(jsons).collect(Collectors.toList()));
     }
 
     public QueryJson(List<JsonObject> jsons) {
