@@ -2,6 +2,9 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 import com.google.gson.JsonObject;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.Test;
 
 public class QueryJsonTest {
@@ -28,46 +31,46 @@ public class QueryJsonTest {
 
   @Test
   public void simpleJsonAddAndGetWithOneProperty() {
-    JsonObject[] in = new JsonObject[]{jsonWithIdOnly()};
+    List<JsonObject> in = Arrays.asList(jsonWithIdOnly());
 
     QueryJson queryJson = new QueryJson(in);
 
-    JsonObject[] res = queryJson.get(jsonWithIdOnly());
+    List<JsonObject> res = queryJson.get(jsonWithIdOnly());
 
-    assertThat(res[0], is(jsonWithIdOnly()));
+    assertThat(res, is(in));
   }
 
   @Test
   public void simpleJsonAddAndGetWithTwoProperties() {
-    JsonObject[] in = new JsonObject[]{jsonWithIdAndValid()};
+    List<JsonObject> in = Arrays.asList(jsonWithIdAndValid());
 
     QueryJson queryJson = new QueryJson(in);
 
-    JsonObject[] res = queryJson.get(jsonWithIdAndValid());
+    List<JsonObject> res = queryJson.get(jsonWithIdAndValid());
 
-    assertThat(res[0], is(jsonWithIdAndValid()));
+    assertThat(res, is(in));
   }
 
   @Test
   public void addAndGetTwoJsonWithSamePropertiesAndValues() {
-    JsonObject[] in = new JsonObject[]{jsonWithIdAndValid(), jsonWithIdAndValid()};
+    List<JsonObject> in = Arrays.asList(jsonWithIdAndValid(), jsonWithIdAndValid());
 
     QueryJson queryJson = new QueryJson(in);
 
-    JsonObject[] res = queryJson.get(jsonWithIdAndValid());
+    List<JsonObject> res = queryJson.get(jsonWithIdAndValid());
 
     assertThat(res, is(in));
   }
 
   @Test
   public void addAndGetTwoJsonWithSamePropertiesButDifferentValues() {
-    JsonObject[] in = new JsonObject[]{jsonWithIdAndValid(), otherJsonWithIdAndValid()};
+    List<JsonObject> in = Arrays.asList(jsonWithIdAndValid(), otherJsonWithIdAndValid());
 
     QueryJson queryJson = new QueryJson(in);
 
-    JsonObject[] res = queryJson.get(jsonWithIdAndValid());
+    List<JsonObject> res = queryJson.get(jsonWithIdAndValid());
 
-    assertThat(res, is(in));
+    assertThat(res, is(new JsonObject[]{jsonWithIdAndValid()}));
   }
 
 
