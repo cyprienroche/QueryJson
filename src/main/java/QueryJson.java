@@ -27,6 +27,8 @@ public class QueryJson {
         return jsons.add(json);
     }
 
+
+
     public List<JsonObject> get(JsonObject json) {
         return jsons.stream()
             .filter(jsonObject -> hasAllSameEntries(json, jsonObject))
