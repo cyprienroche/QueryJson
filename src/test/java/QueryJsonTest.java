@@ -109,4 +109,13 @@ public class QueryJsonTest {
     assertThat(res, is(Collections.singletonList(list1)));
 
   }
+
+  @Test
+  public void getListsContainingSubList2() {
+
+    List<JsonObject> res = listJson.get(JsonMockObjects.jsonList(3,4));
+
+    assertThat(res, is(Arrays.asList(list1, list2, list3)));
+
+  }
 }
