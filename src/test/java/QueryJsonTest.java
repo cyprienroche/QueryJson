@@ -6,37 +6,36 @@ import org.junit.Test;
 
 public class QueryJsonTest {
 
-  JsonObject json = new JsonObject();
-  JsonObject json2 = new JsonObject();
+
+
+  private JsonObject jsonWithIdOnly() {
+    JsonObject json = new JsonObject();
+    json.addProperty("id", 1);
+    return json;
+  }
+
+  private JsonObject jsonWithIdAndValid() {
+    JsonObject json = jsonWithIdOnly();
+    json.addProperty("id", 1);
+    return json;
+  }
 
   @Test
   public void simpleJsonAddAndGetWithOneProperty() {
-    json.addProperty("id", 1);
-    QueryJson queryJson = new QueryJson(json);
+    QueryJson queryJson = new QueryJson(new JsonObject[]{jsonWithIdOnly()});
 
-    assertThat(queryJson.get(json).get("id"), is(json.get("id")));
+    JsonObject[] res = queryJson.get(jsonWithIdOnly());
+
+    assertThat(res[0], is(jsonWithIdAndValid()));
   }
 
   @Test
   public void simpleJsonAddAndGetWithTwoProperties() {
-    json.addProperty("id", 1);
-    json.addProperty("valid", true);
-    QueryJson queryJson = new QueryJson(json);
+    QueryJson queryJson = new QueryJson(new JsonObject[]{jsonWithIdAndValid()});
 
-    assertThat(queryJson.get(json).get("id"), is(json.get("id")));
-    assertThat(queryJson.get(json).get("valid"), is(json.get("valid")));
+    JsonObject[] res = queryJson.get(jsonWithIdAndValid());
+
+    assertThat(res[0], is(jsonWithIdAndValid()));
   }
 
-  @Test
-  public void addAndGetTwoDifferentJson() {
-    json.addProperty("id", 1);
-    json.addProperty("valid", true);
-
-    json2.addProperty("id", 2);
-    json2.addProperty("valid", false);
-    QueryJson queryJson = new QueryJson(json);
-
-    assertThat(queryJson.get(json).get("id"), is(json.get("id")));
-    assertThat(queryJson.get(json).get("valid"), is(json.get("valid")));
-  }
 }

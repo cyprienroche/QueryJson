@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 public class QueryJson {
 
 
-    public QueryJson(JsonObject json) {
+    public QueryJson(JsonObject[] json) {
 
     }
 
@@ -15,7 +15,7 @@ public class QueryJson {
 //        String s1 = {"id":"100"}";
     }
 
-    public JsonObject get(JsonObject json) {
-        return json;
+    public JsonObject[] get(JsonObject json) {
+        return new JsonObject[]{json};
     }
 }
