@@ -2,21 +2,15 @@ import com.google.gson.JsonObject;
 
 public class JsonMockObjects {
 
-  public static JsonObject jsonWithIdOnly() {
+  public static JsonObject jsonWithId(int id) {
     JsonObject json = new JsonObject();
-    json.addProperty("id", 1);
+    json.addProperty("id", id);
     return json;
   }
 
-  public static JsonObject jsonWithIdAndValid() {
-    JsonObject json = jsonWithIdOnly();
-    json.addProperty("valid", true);
-    return json;
-  }
-
-  public static JsonObject otherJsonWithIdAndValid() {
-    JsonObject json = jsonWithIdOnly();
-    json.addProperty("valid", false);
+  public static JsonObject jsonWithIdAndValid(int id, boolean valid) {
+    JsonObject json = jsonWithId(id);
+    json.addProperty("valid", valid);
     return json;
   }
 

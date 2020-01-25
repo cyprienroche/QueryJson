@@ -8,14 +8,14 @@ public class JsonObjectFromStringTest {
 
   @Test
   public void canConvertStringToJsonObject() {
-    String s = JsonMockObjects.jsonWithIdOnly().toString();
-    assertThat(QueryJson.jsonObjectFromString(s), is(JsonMockObjects.jsonWithIdOnly()));
+    String s = JsonMockObjects.jsonWithId(1).toString();
+    assertThat(QueryJson.jsonObjectFromString(s), is(JsonMockObjects.jsonWithId(1)));
   }
 
   @Test
   public void canConvertStringToJsonComplexObject() {
-    String s = JsonMockObjects.jsonWithIdAndValid().toString();
-    assertThat(QueryJson.jsonObjectFromString(s), is(JsonMockObjects.jsonWithIdAndValid()));
+    String s = JsonMockObjects.jsonWithIdAndValid(1, true).toString();
+    assertThat(QueryJson.jsonObjectFromString(s), is(JsonMockObjects.jsonWithIdAndValid(1, true)));
   }
 
   @Test
