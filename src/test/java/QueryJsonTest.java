@@ -21,11 +21,10 @@ public class QueryJsonTest {
 
   @Test
   public void getJsonGivenOnlyOneParameter() {
-    List<JsonObject> expect = Arrays.asList(JsonMockObjects.jsonWithId(1));
 
-    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithId(1));
+    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithId(2));
 
-    assertThat(res, is(Arrays.asList(JsonMockObjects.jsonWithId(1))));
+    assertThat(res, is(Arrays.asList(JsonMockObjects.jsonWithIdAndValid(2,true))));
   }
 
 
