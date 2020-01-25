@@ -91,14 +91,14 @@ public class QueryJsonTest {
         JsonMockObjects.jsonWithIdAndValid(2, true))));
   }
 
-/*  @Test
+  @Test
   public void canDeleteElementsUsingPeople() {
 
     String json = "{\"active\":true}";
     peopleJson.remove(QueryJson.jsonObjectFromString(json));
 
     assertThat(peopleJson.get(new JsonObject()), is(Collections.singletonList(JsonMockPeople.jack)));
-  }*/
+  }
 
 
 }

@@ -56,8 +56,9 @@ public class QueryJson {
         return parser.parse(string).getAsJsonObject();
     }
 
-    public boolean remove(JsonObject json) {
+    public void remove(JsonObject json) {
         List<JsonObject> toDelete = get(json);
-        return jsons.removeAll(toDelete);
+        jsons = jsons.stream().filter(jsonObject -> !toDelete.contains(jsonObject))
+            .collect(Collectors.toList());
     }
 }
