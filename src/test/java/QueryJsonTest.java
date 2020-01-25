@@ -78,6 +78,11 @@ public class QueryJsonTest {
     assertThat(QueryJson.jsonObjectFromString(s), is(jsonWithIdOnly()));
   }
 
+  @Test
+  public void canConvertStringToJsonComplexObject() {
+    String s = jsonWithIdAndValid().toString();
+    assertThat(QueryJson.jsonObjectFromString(s), is(jsonWithIdAndValid()));
+  }
 
 
 }
