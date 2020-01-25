@@ -27,8 +27,6 @@ public class QueryJson {
         return jsons.add(json);
     }
 
-
-
     public List<JsonObject> get(JsonObject json) {
         return jsons.stream()
             .filter(jsonObject -> hasAllSameEntries(json, jsonObject))
@@ -56,5 +54,10 @@ public class QueryJson {
     public static JsonObject jsonObjectFromString(String string) {
         JsonParser parser = new JsonParser();
         return parser.parse(string).getAsJsonObject();
+    }
+
+    public boolean remove(JsonObject json) {
+        List<JsonObject> toDelete = get(json);
+        return jsons.removeAll(toDelete);
     }
 }
