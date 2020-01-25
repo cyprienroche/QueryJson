@@ -8,91 +8,50 @@ import org.junit.Test;
 
 public class QueryJsonTest {
 
-
-
-  private JsonObject jsonWithIdOnly() {
-    JsonObject json = new JsonObject();
-    json.addProperty("id", 1);
-    return json;
-  }
-
-  private JsonObject jsonWithIdAndValid() {
-    JsonObject json = jsonWithIdOnly();
-    json.addProperty("valid", true);
-    return json;
-  }
-
-  private JsonObject otherJsonWithIdAndValid() {
-    JsonObject json = jsonWithIdOnly();
-    json.addProperty("valid", false);
-    return json;
-  }
-
   @Test
   public void simpleJsonAddAndGetWithOneProperty() {
-    List<JsonObject> in = Arrays.asList(jsonWithIdOnly());
+    List<JsonObject> in = Arrays.asList(JsonMockObjects.jsonWithIdOnly());
 
     QueryJson queryJson = new QueryJson(in);
 
-    List<JsonObject> res = queryJson.get(jsonWithIdOnly());
+    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithIdOnly());
 
     assertThat(res, is(in));
   }
 
   @Test
   public void simpleJsonAddAndGetWithTwoProperties() {
-    List<JsonObject> in = Arrays.asList(jsonWithIdAndValid());
+    List<JsonObject> in = Arrays.asList(JsonMockObjects.jsonWithIdAndValid());
 
     QueryJson queryJson = new QueryJson(in);
 
-    List<JsonObject> res = queryJson.get(jsonWithIdAndValid());
+    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithIdAndValid());
 
     assertThat(res, is(in));
   }
 
   @Test
   public void addAndGetTwoJsonWithSamePropertiesAndValues() {
-    List<JsonObject> in = Arrays.asList(jsonWithIdAndValid(), jsonWithIdAndValid());
+    List<JsonObject> in = Arrays.asList(
+        JsonMockObjects.jsonWithIdAndValid(), JsonMockObjects.jsonWithIdAndValid());
 
     QueryJson queryJson = new QueryJson(in);
 
-    List<JsonObject> res = queryJson.get(jsonWithIdAndValid());
+    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithIdAndValid());
 
     assertThat(res, is(in));
   }
 
   @Test
   public void addAndGetTwoJsonWithSamePropertiesButDifferentValues() {
-    List<JsonObject> in = Arrays.asList(jsonWithIdAndValid(), otherJsonWithIdAndValid());
+    List<JsonObject> in = Arrays.asList(
+        JsonMockObjects.jsonWithIdAndValid(), JsonMockObjects.otherJsonWithIdAndValid());
 
     QueryJson queryJson = new QueryJson(in);
 
-    List<JsonObject> res = queryJson.get(jsonWithIdAndValid());
+    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithIdAndValid());
 
-    assertThat(res, is(Arrays.asList(jsonWithIdAndValid())));
-  }
-
-  @Test
-  public void canConvertStringToJsonObject() {
-    String s = jsonWithIdOnly().toString();
-    assertThat(QueryJson.jsonObjectFromString(s), is(jsonWithIdOnly()));
-  }
-
-  @Test
-  public void canConvertStringToJsonComplexObject() {
-    String s = jsonWithIdAndValid().toString();
-    assertThat(QueryJson.jsonObjectFromString(s), is(jsonWithIdAndValid()));
-  }
-
-  @Test
-  public void shouldThrowAnExceptionWhenConvertingNonObjectJson() {
-    String s = "This is not a json object";
-    try {
-      QueryJson.jsonObjectFromString(s);
-      fail();
-    } catch (Exception e) {
-      // should throw exception
-    }
+    assertThat(res, is(Arrays.asList(JsonMockObjects.jsonWithIdAndValid())));
   }
 
 
