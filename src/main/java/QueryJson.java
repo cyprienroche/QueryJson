@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 public class QueryJson {
 
-
     private List<JsonObject> jsons;
 
     public QueryJson() {
@@ -28,10 +27,22 @@ public class QueryJson {
         return jsons.add(json);
     }
 
+    public void remove(JsonObject json) {
+        List<JsonObject> toDelete = get(json);
+        jsons = jsons.stream().filter(jsonObject -> !toDelete.contains(jsonObject))
+            .collect(Collectors.toList());
+    }
+
     public List<JsonObject> get(JsonObject json) {
         return jsons.stream()
             .filter(jsonObject -> hasAllSameEntries(json, jsonObject))
             .collect(Collectors.toList());
+    }
+
+    private boolean hasAllSameEntries(JsonObject jsonWithEntries, JsonObject jsonToDecide) {
+        return jsonWithEntries.entrySet()
+            .stream()
+            .allMatch(e -> hasSameEntry(jsonToDecide, e.getKey(), e.getValue()));
     }
 
     private boolean hasSameEntry(JsonObject json, String memberName, JsonElement elem) {
@@ -56,18 +67,6 @@ public class QueryJson {
         }
 
         return json.get(memberName).equals(elem);
-    }
-
-    private boolean hasAllSameEntries(JsonObject jsonWithEntries, JsonObject jsonToDecide) {
-        return jsonWithEntries.entrySet()
-            .stream()
-            .allMatch(e -> hasSameEntry(jsonToDecide, e.getKey(), e.getValue()));
-    }
-
-    public void remove(JsonObject json) {
-        List<JsonObject> toDelete = get(json);
-        jsons = jsons.stream().filter(jsonObject -> !toDelete.contains(jsonObject))
-            .collect(Collectors.toList());
     }
 
     public static JsonObject jsonObjectFromString(String string) {
