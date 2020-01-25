@@ -10,7 +10,9 @@ public class QueryJsonTest {
 
   QueryJson queryJson = new QueryJson(JsonMockObjects.jsonWithId(1),
       JsonMockObjects.jsonWithIdAndValid(2, true),
-      JsonMockObjects.jsonWithIdAndValid(3, false));
+      JsonMockObjects.jsonWithIdAndValid(3, false),
+      JsonMockObjects.jsonWithIdAndValid(3, true)
+  );
 
   @Test
   public void getSameJsonAsInConstructorReturnsThatJson() {
@@ -25,6 +27,14 @@ public class QueryJsonTest {
     List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithId(2));
 
     assertThat(res, is(Arrays.asList(JsonMockObjects.jsonWithIdAndValid(2,true))));
+  }
+
+  @Test
+  public void getJsonGivenOnlyOneParameter2() {
+
+    List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithIdAndValid(3, true));
+
+    assertThat(res, is(Arrays.asList(JsonMockObjects.jsonWithIdAndValid(3,true))));
   }
 
 

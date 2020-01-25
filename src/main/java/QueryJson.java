@@ -2,7 +2,6 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -29,19 +28,19 @@ public class QueryJson {
     }
 
     public List<JsonObject> get(JsonObject json) {
-        List<JsonObject> res = new LinkedList<>();
-
-        json.entrySet().forEach(e ->
-            res.addAll(getJsonsWithSameEntry(e.getKey(), e.getValue())));
-        return res;
+        return jsons.stream()
+            .filter(jsonObject -> hasAllSameEntries(json, jsonObject))
+            .collect(Collectors.toList());
     }
 
-    private List<JsonObject> getJsonsWithSameEntry(String memberName, JsonElement elem) {
+    private boolean hasSameEntry(JsonObject json, String memberName, JsonElement elem) {
+        return json.has(memberName) && json.get(memberName).equals(elem);
+    }
 
-        return jsons.stream()
-            .filter(jsonObject -> jsonObject.has(memberName)
-                && jsonObject.get(memberName).equals(elem))
-            .collect(Collectors.toList());
+    private boolean hasAllSameEntries(JsonObject jsonWithEntries, JsonObject jsonToDecide) {
+        return jsonWithEntries.entrySet()
+            .stream()
+            .allMatch(e -> hasSameEntry(jsonToDecide, e.getKey(), e.getValue()));
     }
 
     public static JsonObject jsonObjectFromString(String string) {
