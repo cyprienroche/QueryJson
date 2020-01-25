@@ -18,6 +18,15 @@ public class QueryJsonTest {
 
   QueryJson peopleJson = new QueryJson(JsonMockPeople.getMockPeople());
 
+  JsonObject list1 = JsonMockObjects.jsonList(1,2,3,4);
+  JsonObject list2 = JsonMockObjects.jsonList(2,3,4,5);
+  JsonObject list3 = JsonMockObjects.jsonList(3,4,5,6);
+  JsonObject list4 = JsonMockObjects.jsonList(4,5,6,7);
+  JsonObject list5 = JsonMockObjects.jsonList(5,6,7,8);
+  JsonObject list6 = JsonMockObjects.jsonList(6,7,8,9);
+
+  QueryJson listJson = new QueryJson(list1, list2, list3, list4, list5, list6);
+
   @Test
   public void getSameJsonAsInConstructorReturnsThatJson() {
     List<JsonObject> res = simpleQueryJson.get(JsonMockObjects.jsonWithId(1));
@@ -94,7 +103,6 @@ public class QueryJsonTest {
 
   @Test
   public void getListsContainingSubList() {
-
-
+    
   }
 }

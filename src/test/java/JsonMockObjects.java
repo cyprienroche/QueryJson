@@ -1,4 +1,8 @@
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class JsonMockObjects {
 
@@ -14,4 +18,18 @@ public class JsonMockObjects {
     return json;
   }
 
+  public static JsonObject jsonList(int... elem) {
+    List<Integer> list = Arrays.stream(elem).boxed().collect(Collectors.toList());
+    Gson gson = new Gson();
+    return QueryJson.jsonObjectFromString(gson.toJson(new JsonList(list)));
+  }
+
+  private static class JsonList {
+    private String type = "list";
+    private List<Integer> list;
+
+    public JsonList(List<Integer> list) {
+      this.list = list;
+    }
+  }
 }
