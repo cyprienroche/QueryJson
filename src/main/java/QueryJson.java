@@ -34,7 +34,15 @@ public class QueryJson {
     }
 
     private boolean hasSameEntry(JsonObject json, String memberName, JsonElement elem) {
-        return json.has(memberName) && json.get(memberName).equals(elem);
+        if (!json.has(memberName)) {
+            return false;
+        }
+        if (elem.isJsonObject() && json.get(memberName).isJsonObject()) {
+            JsonObject objectWithEntries = elem.getAsJsonObject();
+            JsonObject objectToDecide = json.getAsJsonObject(memberName);
+            return hasAllSameEntries(objectWithEntries, objectToDecide);
+        }
+        return json.get(memberName).equals(elem);
     }
 
     private boolean hasAllSameEntries(JsonObject jsonWithEntries, JsonObject jsonToDecide) {

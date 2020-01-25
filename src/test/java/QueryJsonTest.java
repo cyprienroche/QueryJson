@@ -48,7 +48,6 @@ public class QueryJsonTest {
     assertThat(res, is(Arrays.asList(JsonMockPeople.john, JsonMockPeople.jane, JsonMockPeople.jim)));
   }
 
-/*
   @Test
   public void getUsingNestedJsonInLocationAndActive() {
 
@@ -57,7 +56,6 @@ public class QueryJsonTest {
 
     assertThat(res, is(Arrays.asList(JsonMockPeople.jim)));
   }
-*/
 
 
 }
