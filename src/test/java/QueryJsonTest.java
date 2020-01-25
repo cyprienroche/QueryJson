@@ -16,7 +16,13 @@ public class QueryJsonTest {
 
   private JsonObject jsonWithIdAndValid() {
     JsonObject json = jsonWithIdOnly();
-    json.addProperty("id", 1);
+    json.addProperty("valid", true);
+    return json;
+  }
+
+  private JsonObject otherJsonWithIdAndValid() {
+    JsonObject json = jsonWithIdOnly();
+    json.addProperty("valid", false);
     return json;
   }
 
@@ -28,12 +34,12 @@ public class QueryJsonTest {
 
     JsonObject[] res = queryJson.get(jsonWithIdOnly());
 
-    assertThat(res[0], is(jsonWithIdAndValid()));
+    assertThat(res[0], is(jsonWithIdOnly()));
   }
 
   @Test
   public void simpleJsonAddAndGetWithTwoProperties() {
-    JsonObject[] in = new JsonObject[]{jsonWithIdOnly()};
+    JsonObject[] in = new JsonObject[]{jsonWithIdAndValid()};
 
     QueryJson queryJson = new QueryJson(in);
 
@@ -52,5 +58,18 @@ public class QueryJsonTest {
 
     assertThat(res, is(in));
   }
+
+  @Test
+  public void addAndGetTwoJsonWithSamePropertiesButDifferentValues() {
+    JsonObject[] in = new JsonObject[]{jsonWithIdAndValid(), otherJsonWithIdAndValid()};
+
+    QueryJson queryJson = new QueryJson(in);
+
+    JsonObject[] res = queryJson.get(jsonWithIdAndValid());
+
+    assertThat(res, is(in));
+  }
+
+
 
 }
