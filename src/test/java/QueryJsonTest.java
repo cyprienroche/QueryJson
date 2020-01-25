@@ -2,7 +2,6 @@ import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.*;
 
 import com.google.gson.JsonObject;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.Test;
@@ -71,6 +70,12 @@ public class QueryJsonTest {
     List<JsonObject> res = queryJson.get(jsonWithIdAndValid());
 
     assertThat(res, is(Arrays.asList(jsonWithIdAndValid())));
+  }
+
+  @Test
+  public void canConvertStringToJsonObject() {
+    String s = jsonWithIdOnly().toString();
+    assertThat(QueryJson.jsonObjectFromString(s), is(jsonWithIdOnly()));
   }
 
 
