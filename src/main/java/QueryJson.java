@@ -49,11 +49,16 @@ public class QueryJson {
         if (!json.has(memberName)) {
             return false;
         }
+        if (elem.isJsonPrimitive() && json.get(memberName).isJsonPrimitive()) {
+            return json.get(memberName).equals(elem);
+        }
+
         if (elem.isJsonObject() && json.get(memberName).isJsonObject()) {
             JsonObject objectWithEntries = elem.getAsJsonObject();
             JsonObject objectToDecide = json.getAsJsonObject(memberName);
             return hasAllSameEntries(objectWithEntries, objectToDecide);
         }
+
         if (elem.isJsonArray() && json.get(memberName).isJsonArray()) {
             JsonArray objectWithEntries = elem.getAsJsonArray();
             JsonArray objectToDecide = json.getAsJsonArray(memberName);
@@ -66,7 +71,7 @@ public class QueryJson {
             return true;
         }
 
-        return json.get(memberName).equals(elem);
+        return false;
     }
 
     public static JsonObject jsonObjectFromString(String string) {
