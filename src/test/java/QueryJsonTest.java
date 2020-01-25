@@ -14,6 +14,8 @@ public class QueryJsonTest {
       JsonMockObjects.jsonWithIdAndValid(3, true)
   );
 
+  QueryJson peopleJson = new QueryJson(JsonMockPeople.getMockPeople());
+
   @Test
   public void getSameJsonAsInConstructorReturnsThatJson() {
     List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithId(1));
@@ -26,7 +28,7 @@ public class QueryJsonTest {
 
     List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithId(2));
 
-    assertThat(res, is(Arrays.asList(JsonMockObjects.jsonWithIdAndValid(2,true))));
+    assertThat(res, is(Arrays.asList(JsonMockObjects.jsonWithIdAndValid(2, true))));
   }
 
   @Test
@@ -34,8 +36,28 @@ public class QueryJsonTest {
 
     List<JsonObject> res = queryJson.get(JsonMockObjects.jsonWithIdAndValid(3, true));
 
-    assertThat(res, is(Arrays.asList(JsonMockObjects.jsonWithIdAndValid(3,true))));
+    assertThat(res, is(Arrays.asList(JsonMockObjects.jsonWithIdAndValid(3, true))));
   }
+
+  @Test
+  public void getUsingActive() {
+
+    String json = "{\"active\":true}";
+    List<JsonObject> res = peopleJson.get(QueryJson.jsonObjectFromString(json));
+
+    assertThat(res, is(Arrays.asList(JsonMockPeople.john, JsonMockPeople.jane, JsonMockPeople.jim)));
+  }
+
+/*
+  @Test
+  public void getUsingNestedJsonInLocationAndActive() {
+
+    String json = "{\"location\":{\"state\":\"WA\"},\"active\":true}";
+    List<JsonObject> res = peopleJson.get(QueryJson.jsonObjectFromString(json));
+
+    assertThat(res, is(Arrays.asList(JsonMockPeople.jim)));
+  }
+*/
 
 
 }
