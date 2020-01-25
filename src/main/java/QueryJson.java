@@ -24,10 +24,6 @@ public class QueryJson {
 
     public static JsonObject jsonObjectFromString(String string) {
         JsonParser parser = new JsonParser();
-        JsonElement json = parser.parse(string);
-        if (json.isJsonObject()) {
-            return json.getAsJsonObject();
-        }
-        return null;
+        return parser.parse(string).getAsJsonObject();
     }
 }

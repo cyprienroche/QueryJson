@@ -84,5 +84,16 @@ public class QueryJsonTest {
     assertThat(QueryJson.jsonObjectFromString(s), is(jsonWithIdAndValid()));
   }
 
+  @Test
+  public void shouldThrowAnExceptionWhenConvertingNonObjectJson() {
+    String s = "This is not a json object";
+    try {
+      QueryJson.jsonObjectFromString(s);
+      fail();
+    } catch (Exception e) {
+      // should throw exception
+    }
+  }
+
 
 }
