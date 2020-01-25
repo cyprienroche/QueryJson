@@ -103,6 +103,10 @@ public class QueryJsonTest {
 
   @Test
   public void getListsContainingSubList() {
-    
+
+    List<JsonObject> res = listJson.get(JsonMockObjects.jsonList(1));
+
+    assertThat(res, is(Collections.singletonList(list1)));
+
   }
 }

@@ -1,3 +1,4 @@
+import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -42,6 +43,18 @@ public class QueryJson {
             JsonObject objectToDecide = json.getAsJsonObject(memberName);
             return hasAllSameEntries(objectWithEntries, objectToDecide);
         }
+        if (elem.isJsonArray() && json.get(memberName).isJsonArray()) {
+            JsonArray objectWithEntries = elem.getAsJsonArray();
+            JsonArray objectToDecide = json.getAsJsonArray(memberName);
+
+            for (JsonElement element : objectWithEntries) {
+                if (!objectToDecide.contains(element)) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
         return json.get(memberName).equals(elem);
     }
 
