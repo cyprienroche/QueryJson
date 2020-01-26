@@ -13,12 +13,6 @@ add | store the given document
 get | find all documents which have the same properties and property values as the given document, and emit them to stdout
 delete | remove all documents which have the same properties, and property values as the given document. 
 
-
-
-* add, store the given document
-* get, find all documents which have the same properties and property values as the given document, and emit them to stdout
-* delete, remove all documents which have the same properties, and property values as the given document. 
-
 The commands are all lowercase. 
 
 Given the input:
