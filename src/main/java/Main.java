@@ -5,6 +5,7 @@ import java.util.Scanner;
 public class Main {
 
   public static void main(String[] args) {
+    System.out.println("\nWelcome to QueryJson.\nEnter help to see available commands.\n");
     Scanner scanner = new Scanner(System.in);
     List<JsonObject> jsons;
     QueryJson queryJson = new QueryJson();
@@ -53,6 +54,7 @@ public class Main {
     help.append("add json - adds the specified json to the store\n");
     help.append("get json - retrieves all json with specified \n");
     help.append("remove json - deletes specified json from the store\n");
+    help.append("exit to leave\n");
     help.append("help\n");
     return help.toString();
   }
